@@ -157,7 +157,7 @@ public class SinglyLinkedList<T> {
     public static void main(final String[] args) {
 
         // testExercicio1();
-        testExercicio2();
+        //testExercicio2();
         //testExercicio3();       
 
     }
@@ -202,10 +202,11 @@ public class SinglyLinkedList<T> {
         list.addLast('b');
         list.addLast('d');
         System.out.println(list);
-
-        list.deleteNth(0);
         
-        System.out.println(list);
+        int num=5;
+        list.deleteNth(num);
+        if(num<=list.size)
+        	System.out.println(list);
     }
 
 }
