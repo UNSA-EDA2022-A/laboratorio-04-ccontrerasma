@@ -105,19 +105,60 @@ public class SinglyLinkedList<T> {
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
     public void insertNth(T data, int position) {
+    	if (isEmpty())
+            return;
+    	else if (position>size) {
+    		System.out.println("“Fuera de rango.”");
+            return ;}
+    	else if (position == 0) {
+           addFirst(data);
+            }
+    	else if (position == size) {
+    		 addLast(data);
+            }
+        else {
+            // Ciclo con for y uso de size para mostrar alternativa al while
+            Node<T> cur = first;
+            for (int i = 0; i < position-1; i++) {
+            	cur = cur.getNext();
+                }
+            Node<T> newNode = new Node<T>(data, cur.getNext());
+            cur.setNext(newNode);
+        }
+        size++;
 
     }
 
     // Elimina el nodo de una posicion especifica de la lista
     public void deleteNth(int position) {
-
+    
+    	if (isEmpty())
+            return;
+    	else if (position>size) {
+    		System.out.println("“Fuera de rango.”");
+            return ;}
+    	else if (position == 0) {
+            removeFirst();
+            }
+    	else if (position == size-1) {
+            removeLast();
+            }
+        else {
+            // Ciclo con for y uso de size para mostrar alternativa al while
+            Node<T> cur = first;
+            for (int i = 0; i < position-2; i++) {
+            	cur = cur.getNext();
+                }
+            cur.setNext(cur.getNext().getNext());
+        }
+        size--;
     }
 
     public static void main(final String[] args) {
 
         // testExercicio1();
-        // testExercicio2();
-        testExercicio3();       
+        testExercicio2();
+        //testExercicio3();       
 
     }
 
@@ -147,10 +188,10 @@ public class SinglyLinkedList<T> {
         list.addLast('d');
 
         System.out.println(list);
-
-        list.insertNth('c', 2);
-
-        System.out.println(list);
+        int num=5;
+        list.insertNth('c', num);
+        if(num<=list.size)
+        	System.out.println(list);
     }
 
     public static void testExercicio3(){
@@ -160,11 +201,10 @@ public class SinglyLinkedList<T> {
         list.addLast('a');
         list.addLast('b');
         list.addLast('d');
-
         System.out.println(list);
 
-        list.deleteNth(2);
-
+        list.deleteNth(0);
+        
         System.out.println(list);
     }
 
