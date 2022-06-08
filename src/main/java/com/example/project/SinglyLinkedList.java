@@ -1,6 +1,6 @@
 package com.example.project;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T extends Comparable<T>> {
     private Node<T> first; // Primero nodo de la lista
     private int size; // Tamano de la lista
 
@@ -9,7 +9,6 @@ public class SinglyLinkedList<T> {
         first = null;
         size = 0;
     }
-
     // Retorna el tamano de la lista
     public int size() {
         return size;
@@ -99,8 +98,22 @@ public class SinglyLinkedList<T> {
     // NUEVOS METODOS
 
     // Elimina aquellos nodos de la lista que esten duplicados
-    public void deleteDuplicates() {
-
+    public void  deleteDuplicates(){  
+    	//Se usa el ultimo valor del last, para compararlos en orden con los primeros
+    	T valorUltimo = getLast();
+    	
+    	Node<T> cur = first;//Se crea un nodo auxiliar que emp
+ 
+    	for(int e=0; e<size-1&&cur.getNext()!=null;) {
+    		if((cur.getValue()).compareTo(valorUltimo)== 0){
+    			deleteNth(size);
+    			deleteDuplicates();
+    			break;
+    			
+    		}
+    		cur = cur.getNext();
+    		e++;
+    	}
     }
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
@@ -146,7 +159,7 @@ public class SinglyLinkedList<T> {
         else {
             // Ciclo con for y uso de size para mostrar alternativa al while
             Node<T> cur = first;
-            for (int i = 0; i < position-2; i++) {
+            for (int i = 0; i < size-2; i++) {
             	cur = cur.getNext();
                 }
             cur.setNext(cur.getNext().getNext());
@@ -156,7 +169,7 @@ public class SinglyLinkedList<T> {
 
     public static void main(final String[] args) {
 
-        // testExercicio1();
+        testExercicio1();
         //testExercicio2();
         //testExercicio3();       
 
@@ -164,13 +177,12 @@ public class SinglyLinkedList<T> {
 
     public static void testExercicio1(){
 
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+    	SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 
-        list.addLast(47);
-        list.addLast(89);
-        list.addLast(56);
-        list.addLast(89);
-        list.addLast(56);
+        list.addLast("Jorge");
+        list.addLast("Juan");
+        list.addLast("Jorge");
+        
 
         System.out.println(list);
 
@@ -202,11 +214,11 @@ public class SinglyLinkedList<T> {
         list.addLast('b');
         list.addLast('d');
         System.out.println(list);
+       
         
-        int num=5;
+        int num=1;
         list.deleteNth(num);
-        if(num<=list.size)
-        	System.out.println(list);
+        System.out.println(list);
     }
-
+  
 }
