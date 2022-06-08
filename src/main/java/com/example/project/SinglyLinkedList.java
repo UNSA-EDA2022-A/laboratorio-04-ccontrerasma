@@ -102,8 +102,8 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     	//Se usa el ultimo valor del last, para compararlos en orden con los primeros
     	T valorUltimo = getLast();
     	
-    	Node<T> cur = first;//Se crea un nodo auxiliar que emp
- 
+    	Node<T> cur = first;//Se crea un nodo auxiliar que empiece en first
+    	//recorre y compara cada nodo
     	for(int e=0; e<size-1&&cur.getNext()!=null;) {
     		if((cur.getValue()).compareTo(valorUltimo)== 0){
     			deleteNth(size);
