@@ -1,6 +1,6 @@
 package com.example.project;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T extends Comparable<T>> {
     private Node<T> first; // Primero nodo de la lista
     private int size; // Tamano de la lista
 
@@ -9,7 +9,6 @@ public class SinglyLinkedList<T> {
         first = null;
         size = 0;
     }
-
     // Retorna el tamano de la lista
     public int size() {
         return size;
@@ -99,37 +98,91 @@ public class SinglyLinkedList<T> {
     // NUEVOS METODOS
 
     // Elimina aquellos nodos de la lista que esten duplicados
-    public void deleteDuplicates() {
-
+    public void  deleteDuplicates(){  
+    	//Se usa el ultimo valor del last, para compararlos en orden con los primeros
+    	T valorUltimo = getLast();
+    	
+    	Node<T> cur = first;//Se crea un nodo auxiliar que empiece en first
+    	//recorre y compara cada nodo
+    	for(int e=0; e<size-1&&cur.getNext()!=null;) {
+    		if((cur.getValue()).compareTo(valorUltimo)== 0){
+    			deleteNth(size);
+    			deleteDuplicates();
+    			break;
+    			
+    		}
+    		cur = cur.getNext();
+    		e++;
+    	}
     }
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
     public void insertNth(T data, int position) {
+    	if (isEmpty())
+            return;
+    	else if (position>size) {
+    		System.out.println("“Fuera de rango.”");
+            return ;}
+    	else if (position == 0) {
+           addFirst(data);
+            }
+    	else if (position == size) {
+    		 addLast(data);
+            }
+        else {
+            // Ciclo con for y uso de size para mostrar alternativa al while
+            Node<T> cur = first;
+            for (int i = 0; i < position-1; i++) {
+            	cur = cur.getNext();
+                }
+            Node<T> newNode = new Node<T>(data, cur.getNext());
+            cur.setNext(newNode);
+        }
+        size++;
 
     }
 
     // Elimina el nodo de una posicion especifica de la lista
     public void deleteNth(int position) {
-
+    
+    	if (isEmpty())
+            return;
+    	else if (position>size) {
+    		System.out.println("“Fuera de rango.”");
+            return ;}
+    	else if (position == 0) {
+            removeFirst();
+            }
+    	else if (position == size-1) {
+            removeLast();
+            }
+        else {
+            // Ciclo con for y uso de size para mostrar alternativa al while
+            Node<T> cur = first;
+            for (int i = 0; i < size-2; i++) {
+            	cur = cur.getNext();
+                }
+            cur.setNext(cur.getNext().getNext());
+        }
+        size--;
     }
 
     public static void main(final String[] args) {
 
-        // testExercicio1();
-        // testExercicio2();
-        testExercicio3();       
+        testExercicio1();
+        //testExercicio2();
+        //testExercicio3();       
 
     }
 
     public static void testExercicio1(){
 
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+    	SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 
-        list.addLast(47);
-        list.addLast(89);
-        list.addLast(56);
-        list.addLast(89);
-        list.addLast(56);
+        list.addLast("Jorge");
+        list.addLast("Juan");
+        list.addLast("Jorge");
+        
 
         System.out.println(list);
 
@@ -147,10 +200,10 @@ public class SinglyLinkedList<T> {
         list.addLast('d');
 
         System.out.println(list);
-
-        list.insertNth('c', 2);
-
-        System.out.println(list);
+        int num=5;
+        list.insertNth('c', num);
+        if(num<=list.size)
+        	System.out.println(list);
     }
 
     public static void testExercicio3(){
@@ -160,12 +213,12 @@ public class SinglyLinkedList<T> {
         list.addLast('a');
         list.addLast('b');
         list.addLast('d');
-
         System.out.println(list);
-
-        list.deleteNth(2);
-
+       
+        
+        int num=1;
+        list.deleteNth(num);
         System.out.println(list);
     }
-
+  
 }
